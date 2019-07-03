@@ -1,0 +1,28 @@
+package db
+
+const USER_VERSION = 1
+
+var createStmt = `
+BEGIN TRANSACTION; 
+
+CREATE TABLE messages ( 
+	id			INTEGER NOT NULL UNIQUE PRIMARY KEY, 
+	startTime	INTEGER NOT NULL UNIQUE, 
+	endTime		INTEGER UNIQUE,
+	duration	INTEGER,
+	killed		INTEGER,
+	class		INTEGER NOT NULL REFERENCES wm_class(id),
+	title		INTEGER NOT NULL REFERENCES wm_title(id)
+	); 
+
+CREATE TABLE wm_class ( 
+	id			INTEGER NOT NULL UNIQUE PRIMARY KEY, 
+	class		TEXT NOT NULL UNIQUE
+	); 
+
+CREATE TABLE wm_title ( 
+	id			INTEGER NOT NULL UNIQUE PRIMARY KEY, 
+	title		TEXT NOT NULL UNIQUE
+	); 
+
+COMMIT;`
